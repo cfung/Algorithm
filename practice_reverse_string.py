@@ -19,3 +19,5 @@ for idx, word in enumerate(my_string.split(' ')):
 		
 
 print str(result)
+
+# output: sihT si hcus a eituc tac.
