@@ -1,0 +1,291 @@
+
+a[start:end] # items start through end-1
+a[start:]    # items start through the rest of the array
+a[:end]      # items from the beginning through end-1
+a[:]         # a copy of the whole array
+
+a[-1]    # last item in the array
+a[-2:]   # last two items in the array
+a[:-2]   # everything except the last two items
+
+	
+The tutorial talks about it:
+
+http://docs.python.org/tutorial/introduction.html#strings
+
+(Scroll down a bit until you get to the part about slicing.)
+
+The ASCII art diagram is helpful too for remembering how slices work:
+
+ +---+---+---+---+---+
+ | H | e | l | p | A |
+ +---+---+---+---+---+
+ 0   1   2   3   4   5
+-5  -4  -3  -2  -1
+
+1. Given a string name, e.g. "Bob", return a greeting of the form "Hello Bob!".
+
+hello_name('Bob') → 'Hello Bob!'
+hello_name('Alice') → 'Hello Alice!'
+hello_name('X') → 'Hello X!'
+
+input_string = raw_input().strip()
+
+return ("Hello %s!)%input_string
+
+
+
+2. Given two strings, a and b, return the result of putting them together in the order abba, e.g. "Hi" and "Bye" returns "HiByeByeHi".
+
+make_abba('Hi', 'Bye') → 'HiByeByeHi'
+make_abba('Yo', 'Alice') → 'YoAliceAliceYo'
+make_abba('What', 'Up') → 'WhatUpUpWhat'
+
+return a + b + b + a
+
+
+3. Given a string, return the string made of its first two chars, so the String "Hello" yields "He". If the string is shorter than length 2, return whatever there is, so "X" yields "X", and the empty string "" yields the empty string "".
+
+first_two('Hello') → 'He'
+first_two('abcdefg') → 'ab'
+first_two('ab') → 'ab'
+
+if len(str) < 2:
+	return str
+else:
+	return str[:2]
+
+
+4. Given a string of even length, return the first half. So the string "WooHoo" yields "Woo".
+
+first_half('WooHoo') → 'Woo'
+first_half('HelloThere') → 'Hello'
+first_half('abcdef') → 'abc'
+
+return str[:len(str)/2]
+
+
+5. Given a string, return a version without the first and last char, so "Hello" yields "ell". The string length will be at least 2.
+
+without_end('Hello') → 'ell'
+without_end('java') → 'av'
+without_end('coding') → 'odin'
+
+return str[1:len(str)-1] 
+
+
+6. Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length 0).
+
+combo_string('Hello', 'hi') → 'hiHellohi'
+combo_string('hi', 'Hello') → 'hiHellohi'
+combo_string('aaa', 'b') → 'baaab'
+
+if len(a) < len(b):
+	return a + b + a
+else:
+	return b + a + b
+
+7. Given 2 strings, return their concatenation, except omit the first char of each. The strings will be at least length 1.
+
+non_start('Hello', 'There') → 'ellohere'
+non_start('java', 'code') → 'avaode'
+non_start('shotl', 'java') → 'hotlava'
+
+return a[1:] + b[1:]
+
+
+8. Given a string, return a "rotated left 2" version where the first 2 chars are moved to the end. The string length will be at least 2.
+
+left2('Hello') → 'lloHe'
+left2('java') → 'vaja'
+left2('Hi') → 'Hi'
+
+if str > 2:
+	return str[2:] + str[:2]
+else:
+	return str
+
+
+9. The web is built with HTML strings like "<i>Yay</i>" which draws Yay as italic text. In this example, the "i" tag makes <i> and </i> which surround the word "Yay". Given tag and word strings, create the HTML string with tags around the word, e.g. "<i>Yay</i>".
+
+make_tags('i', 'Yay') → '<i>Yay</i>'
+make_tags('i', 'Hello') → '<i>Hello</i>'
+make_tags('cite', 'Yay') → '<cite>Yay</cite>'
+
+def make_tags(tag, word):
+
+	return "<" + tag + ">" + word + "</" + tag + ">"
+
+10. 
+Given an "out" string length 4, such as "<<>>", and a word, return a new string where the word is in the middle of the out string, e.g. "<<word>>".
+
+make_out_word('<<>>', 'Yay') → '<<Yay>>'
+make_out_word('<<>>', 'WooHoo') → '<<WooHoo>>'
+make_out_word('[[]]', 'word') → '[[word]]'
+
+def make_out_word(out, word):
+	return out[:2] + word + out[len(out)-2:len(out)]  # or out[-2:] last 2 char of array
+
+
+11. Given a string, return a new string made of 3 copies of the last 2 chars of the original string. The string length will be at least 2.
+
+extra_end('Hello') → 'lololo'
+extra_end('ab') → 'ababab'
+extra_end('Hi') → 'HiHiHi'
+
+def extra_end(str):
+	return str[-2:] * 3
+
+12. Given a string, return a string where for every char in the original, there are two chars.
+
+double_char('The') → 'TThhee'
+double_char('AAbb') → 'AAAAbbbb'
+double_char('Hi-There') → 'HHii--TThheerree'
+
+def double_char(str):
+	final_str = ""
+	for char in str:
+		final_str += char * 2
+	return final_str
+
+
+13. Return the number of times that the string "hi" appears anywhere in the given string.
+
+count_hi('abc hi ho') → 1
+count_hi('ABChi hi') → 2
+count_hi('hihi') → 2
+
+def count_hi(str):
+  substring = "hi"
+  count = 0
+  for idx, char in enumerate(str):
+    if (idx + 1 <= len(str)) and (str[idx:idx+2] == substring):
+      count += 1
+  
+  return count
+
+ 14. Return True if the string "cat" and "dog" appear the same number of times in the given string.
+
+cat_dog('catdog') → True
+cat_dog('catcat') → False
+cat_dog('1cat1cadodog') → True
+
+def cat_dog(str):
+
+  substring_1 = "cat"
+  substring_2 = "dog"
+
+  count_1 = 0
+  count_2 = 0
+
+  for idx, char in enumerate(str):
+	  if (idx + 3 <= len(str)) and (str[idx:idx+3] == substring_1):
+		  count_1 += 1
+	  if (idx + 3 <= len(str)) and (str[idx:idx+3] == substring_2):
+		  count_2 += 1
+
+  if count_1 == count_2:
+	  return True
+  else:
+	  return False 
+	
+15. 
+Return the number of times that the string "code" appears anywhere in the given string, except we'll accept any letter for the 'd', so "cope" and "cooe" count.
+
+count_code('aaacodebbb') → 1
+count_code('codexxcode') → 2
+count_code('cozexxcope') → 2
+
+def count_code(str):
+	substring_1 = "co"
+	substring_2 = "e"
+
+	count = 0
+
+	for idx, char in enumerate(str):
+		if (idx + 4 <= len(str)) and (str[idx:idx+2] == substring_1) and (str[idx+3:idx+4] == substring_2):
+			count += 1
+
+	return count
+
+16.
+Given two strings, return True if either of the strings appears at the very end of the other string, ignoring upper/lower case differences (in other words, the computation should not be "case sensitive"). Note: s.lower() returns the lowercase version of a string.
+
+end_other('Hiabc', 'abc') → True
+end_other('AbC', 'HiaBc') → True
+end_other('abc', 'abXabc') → True
+
+# two scenarios:
+# a is shorter -> then check if a is equal to end of b
+# b is shorter -> then check if b is equal to end of a
+
+def end_other(a, b):
+
+	if len(a) < len(b):
+	  return a.lower() == b[len(b)-len(a):].lower()
+	else:
+	  return b.lower() == a[len(a)-len(b):].lower()
+
+
+
+
+*********** made 3 mistakes in this code....... ************
+
+#1 mistake:  capital B
+#2 mistake:  use of .lower() inside list
+#3 mistake:  extra ]
+	
+	if len(a) < len(B):
+		return a.lower() == b[len(b)-len(a)].lower():].lower()
+	else:
+		return b.lower() == a[len(a)-len(b)].lower():].lower()
+
+
+
+*************  Another mistake, no need to loop, very end ***************
+
+
+****************  original answer = WRONG!  requirement = end ***********
+def end_other(a, b):
+
+	if a.lower() in b.lower():
+		return True
+	elif b.lower() in a.lower():
+		return True
+	else:
+		return False
+
+
+17. 
+Return True if the given string contains an appearance of "xyz" where the xyz is not directly preceeded by a period (.). So "xxyz" counts but "x.xyz" does not.
+
+xyz_there('abcxyz') → True
+xyz_there('abc.xyz') → False
+xyz_there('xyz.abc') → True
+
+def xyz_there(str):
+	substring = "xyz"
+
+	for idx, char in enumerate(str):
+		if (idx == 0) and (str[idx:idx+3] == substring) and (str[idx-1] != "."):
+			return True
+		elif (idx != 0) and (str[idx:idx+3] == substring) and (str[idx-1] != "."):
+			return True
+
+	return False
+
+**********   made 1 mistake  **********
+
+both of these were wrong because the code forgot to account for idx == 0
+
+# mistake 1:  xyz_there('xyz.abc') → True	False
+# mistake 2:  xyz_there('xyz') → True	False	
+
+def xyz_there(str):
+	substring = "xyz"
+
+	for idx, char in enumerate(str):
+		if (idx != 0) and (str[idx:idx+3] == substring) and (str[idx-1] != "."):
+			return True
+
+	return False
