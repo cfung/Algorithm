@@ -1,46 +1,47 @@
-def number_needed(a, b):
-    # we should go through both strings, keep track of the # of letter using a dict
-    # then compare the difference
 
-    dict_a = {}
-    dict_b = {}
+# this problem requires the count of deletion to make 1 string and anagram of another
+# https://www.hackerrank.com/challenges/ctci-making-anagrams (cracking the coding interview)
+
+# mistake 1:  should use defaultdict instead of 
+# mistake 2:  defaultdict (int)
+# mistake 3:  RuntimeError: dictionary changed size during iteration (use keys() instead)
+# mistake 4:  looped only 1 dict, need to loop both dicts
+# mistake 5:  defaultdict automatically adds keys, so dict_b contains ALL keys
+
+# sample input:
+#bugexikjevtubidpulaelsbcqlupwetzyzdvjphn
+#lajoipfecfinxjspxmevqxuqyalhrsxcvgsdxxkacspbchrbvvwnvsdtsrdk
+
+# sample output: 40
+
+from collections import defaultdict
+
+def number_needed(a, b):
+    dict_a = defaultdict(int)
+    #dict_b = defaultdict(int)
 
     for char in a:
-    	# char already in dict
-        print "char is...", char
-    	if char in dict_a.keys():
-            print "key in a exists.."
-            dict_a[char] += 1
-    	else:
-            print "key in a does NOT exist.."
-            dict_a[char] = 1
+        
+        dict_a[char] += 1
 
     for char in b:
-    	if char in dict_b.keys():
-    		dict_b[char] += 1
-    	else:
-    		dict_b[char] = 1
-
-    #print "dict_a is..", dict_a
+        
+        dict_a[char] -= 1
 
     count = 0
 
-    #print sorted(dict_a.keys())
-    #print sorted(dict_b.keys())
+    for char in dict_a.keys():
 
-    # sort the dicts so the keys are alphabetical order
-    for char_a, char_b in zip(sorted(dict_a.keys()), sorted(dict_b.keys())):
-    	print "what is char_a", char_a
-        print "what is char_b", char_b
+        if dict_a[char] != 0:
 
-        if dict_a[char_a] != dict_b[char_b]:
-
-    		count += abs(dict_a[char_a]-dict_b[char_b])
+            count += abs(dict_a[char])
 
     return count
 
 a = raw_input().strip()
 b = raw_input().strip()
+
+
 
 # sample input: 
 # cde 
@@ -56,8 +57,8 @@ print number_needed(a, b)
 
 '''    Python 3 - http://www.practice.geeksforgeeks.org/problem-page.php?pid=88
 
-Given two strings, check whether two given strings are anagram of each other or not. An anagram of a string is another string that contains same characters, only the order of characters can be different. For example, “act” and “tac” are anagram of each other.
-
+Given two strings, check whether two given strings are anagram of each other or not. An anagram of a string is another string that contains same characters, 
+only the order of characters can be different. For example, "act" and "tac" are anagram of each other.
 Input:
 
 The first line of input contains an integer T denoting the number of test cases. Each test case consist of two strings in 'lowercase' only, in a separate line.
@@ -68,9 +69,9 @@ Print "YES" without quotes if the two strings are anagram else print "NO".
 
 Constraints:
 
-1 ≤ T ≤ 30
+1 <= T <= 30
 
-1 ≤ |s| ≤ 100
+1 <= |s| <= 100
 
 Example:
 
@@ -86,6 +87,7 @@ YES
 NO
 '''
 #code
+'''
 n = int(input().strip())
 
 for num in range(0, n):
@@ -113,3 +115,40 @@ for num in range(0, n):
         print ("YES")
     else:
         print ("NO")
+'''
+# *****************************************************************
+'''
+# Another method:  sort both strings and check if they're equal
+
+def check_anagram_by_sort(string_1, string_2):
+    return sorted(string_1) == sorted(string_2)
+
+print check_anagram_by_sort("abcd", "kkoo")
+
+'''
+'''
+# ******************  Anagram (compare each string) ***************
+# https://www.hackerrank.com/challenges/anagram
+
+mistake 1: loop thru for loop used in...X instead of range()
+mistake 2: line[len(line)+1:]  (correct:  line[len(line)/2 ])
+mistake 3: should NOT do "plus 1 "to start string_B: line[len(line)/2 + 1])
+mistake 4: remove string by [::], case where last element to remove FAIL
+mistake 5: should create new string with removed idx this way:  newstr = input_str[:idx] + input_str[idx+1:]
+mistake 6: forgot to check if string is odd.  If odd, cannot be anagram
+
+# featured solution
+
+from collections import Counter
+for _ in range(input()):
+    s = raw_input()
+    if len(s)%2 == 1:
+        print "-1"
+        continue
+    temp = Counter(s[0:len(s)/2]) - Counter(s[len(s)/2:])
+    print sum(temp.values())
+
+'''
+
+
+
