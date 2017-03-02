@@ -51,7 +51,7 @@ def reverse_nospecial(str):
 	str = list(str)
 	#result = list(result)
 
-	for i in range(len(str)):
+	for i in range(len(str)):  # or use while l < r
 
 		if str[l] not in string.letters:
 			l += 1
