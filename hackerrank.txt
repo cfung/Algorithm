@@ -144,3 +144,152 @@ for idx, char in enumerate(arr[::-1]):
 		result_str += " "
 
 print result_str
+
+********************************  Day 8 **************************
+
+#  watch out for correct var name + how to declare defaultdict
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# mistake: runtime error  (not reading question correctly since # of queries is UNKNOWN, use while loop instead)
+# mistake 2: use try/except EOFError then break
+
+#  Sample Input
+
+3
+sam 99912222
+tom 11122222
+harry 12299933
+sam
+edward
+harry
+
+# Sample Output
+
+sam=99912222
+Not found
+harry=12299933
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+from collections import defaultdict
+n = int(raw_input().strip())
+dict_phone = defaultdict(int)
+
+query_list = []
+
+for i in range(0,n):
+    name, phone = raw_input().split(' ')
+
+    dict_phone[name] = phone
+'''
+while 1:
+	line = input('').strip()
+	if len(line) > 0:
+		query_list.append(line)
+	else:
+		break
+'''
+#print dict_phone
+while True:
+    try:
+        line = raw_input('').strip()
+
+        query_list.append(line)
+ 
+    except EOFError:
+        break
+
+for j in query_list:
+    #name = raw_input().strip()
+    if j in dict_phone:
+        print (j+"="+dict_phone[j])
+    else:
+        print ("Not found")
+
+**********************  Day 10 *********************
+Task 
+Given a base-10 integer, n, convert it to binary (base-2). Then find and print the base- integer denoting 
+the maximum number of consecutive 1's in n's binary representation.
+
+input:  n
+output: Print a single base-10 integer denoting the maximum number of consecutive 1's in the binary representation of n.
+
+input: 5
+output :1
+
+input: 13
+ouput: 2
+
+ideas:  convert it to binary (use modulo), then cast it to a string, 
+5 - 4*1 + 2*0 + 1*1 = 101
+13 - 8+4+2 - 8*1 + 4*1 + 0*1 = 1101 = 2
+
+17 - 8*1 + 
+
+13/2 = 6 13%2 = 1
+
+
+**********************  Day 12 - Inheritance *********
+
+class Person:
+	def __init__(self, firstName, lastName, idNumber):
+		self.firstName = firstName
+		self.lastName = lastName
+		self.idNumber = idNumber
+	def printPerson(self):
+		print "Name:", self.lastName + ",", self.firstName
+		print "ID:", self.idNumber
+
+# mistake 1: super().__init__(firstName, lastName, id)
+# mistake 2: AttributeError: Student instance has no attribute 'scores'
+
+class Student(Person):
+
+    #   Class Constructor
+    #   
+    #   Parameters:
+    #   firstName - A string denoting the Person's first name.
+    #   lastName - A string denoting the Person's last name.
+    #   id - An integer denoting the Person's ID number.
+    #   scores - An array of integers denoting the Person's test scores.
+    #
+    # Write your constructor here
+    def __init__(self, firstName, lastName, id, scores):
+        #super(Person, self).__init__(firstName, lastName, id)
+        Person.__init__(self, firstName, lastName, id)
+        self.scores = scores
+
+    #   Function Name: calculate
+    #   Return: A character denoting the grade.
+    #
+    # Write your function here
+    def calculate(self):
+        result = None
+        avg_score = 0
+        total_score = 0
+        #print "what is scores..", self.scores
+        
+        for s in self.scores:
+            total_score += s
+        
+        avg_score = total_score / len(self.scores)
+        
+        #self.scores = self.scores/len(scores)
+        
+        if avg_score >= 90 and avg_score <= 100:
+            result = "O"
+        if avg_score >= 80 and avg_score < 90:
+            result = "E"
+        if avg_score >= 70 and avg_score < 80:
+            result = "A"
+        if avg_score >= 55 and avg_score < 70:
+            result = "P"
+        if avg_score >= 40 and avg_score < 55:
+            result = "D"
+        if avg_score < 40:
+            result = "T"
+        return result
+    
+
+
+
