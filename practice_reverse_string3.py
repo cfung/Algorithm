@@ -41,3 +41,24 @@ def practice_reverse_string3(str):
 print practice_reverse_string3("cat")
 print practice_reverse_string3("iamaverycutecat")
 print practice_reverse_string3("I know how it feels.")
+
+''' if [::-1] can be used
+
+
+task:  reverse string without using built-in
+
+
+def reverse_string(str):
+	
+	res = ""
+
+	for c in str.strip()[len(str)-1::-1]:
+
+		res += c
+
+	return res
+
+print (reverse_string("ibelieveicanfly"))
+
+print (reverse_string("i believe i can fly"))
+'''
