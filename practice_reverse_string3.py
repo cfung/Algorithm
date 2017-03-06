@@ -31,6 +31,7 @@ def practice_reverse_string3(str):
 
 	result = []
 
+	# 2nd argument is stop (excludes - so use -1 if it'll stop at 0)
 	for i in range(len(str)-1, -1, -1):
 		result.append(str[i])
 
