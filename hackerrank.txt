@@ -291,5 +291,22 @@ class Student(Person):
         return result
     
 
+# ******************  Day 16 Exceptions - String to Integer *******************
+'''
+Task: Read a string, , and print its integer value; if  cannot be converted to an integer, print Bad String.
+'''
 
+#!/bin/python
+
+import sys
+
+
+S = raw_input().strip()
+
+try:
+    print int(S)
+
+except:
+    print "Bad String"
+    
 
