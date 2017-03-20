@@ -309,4 +309,34 @@ try:
 except:
     print "Bad String"
     
+# ***************** Day 17 Exceptions ***************************************
+'''
+Task: Write a Calculator class with a single method: int power(int,int). 
+The power method takes two integers,  and , as parameters and returns the integer result of . 
+If either  or  is negative, then the method must throw an exception with the message: n and p should be non-negative.
 
+mistake 1: forgot operator of a to the power of b (a**b)
+mistake 2: forgot self in class method
+'''
+
+#Write your code here
+class Calculator():
+    def power(self, a, b):
+        # If either  or  is negative, 
+        # then the method must throw an exception 
+        # with the message: n and p should be non-negative.
+
+        if a < 0 or b < 0:
+            raise Exception("n and p should be non-negative")
+        else:
+            return a**b
+
+myCalculator=Calculator()
+T=int(raw_input())
+for i in range(T):
+    n,p = map(int, raw_input().split())
+    try:
+        ans=myCalculator.power(n,p)
+        print ans
+    except Exception,e:
+        print e    
