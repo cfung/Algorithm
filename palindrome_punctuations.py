@@ -1,3 +1,4 @@
+# Leetcode: https://leetcode.com/problems/valid-palindrome/description/
 # mistake 1: use .join() to remove whitespace
 # mistake 2: only used .strip(), did not consider whitespace in middle
 # mistake 3: did not know how to use maketrans() and translate()
